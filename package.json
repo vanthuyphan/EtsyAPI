@@ -2,7 +2,7 @@
   "name": "EtsyClone",
   "version": "1.0.0",
   "description": "",
-  "author": "Van Phan",
+  "author": "Van, Bati",
   "main": "index.js",
   "private": false,
   "engines": {
@@ -63,10 +63,5 @@
     "supertest-as-promised": "4.0.2",
     "validate-commit-msg": "^2.14.0"
   },
-  "license": "MIT",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  }
+  "license": "MIT"
 }
