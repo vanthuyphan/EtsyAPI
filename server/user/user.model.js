@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
-/**
- * User Schema
- */
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -25,9 +22,6 @@ const UserSchema = new mongoose.Schema({
 UserSchema.method({
 });
 
-/**
- * Statics
- */
 UserSchema.statics = {
   get(id) {
     return this.findById(id)
@@ -48,7 +42,4 @@ UserSchema.statics = {
   }
 };
 
-/**
- * @typedef User
- */
 module.exports = mongoose.model('User', UserSchema);
