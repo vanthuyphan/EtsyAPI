@@ -32,11 +32,18 @@ function update(req, res, next) {
     const productId = req.params.productId;
     Product.get(productId)
         .then((product) => {
-            product.status = req.body.status;
+        console.log("Fond product", product);
+            product.status = "sold";
             product.save()
                 .then(savedProduct => res.json(savedProduct))
                 .catch(e => next(e));
         })
+        .catch(e => next(e));
+}
+
+function getActiveProduct(req, res, next) {
+    Product.find({ status: 'sale'})
+        .then(products => res.json(products))
         .catch(e => next(e));
 }
 
@@ -51,4 +58,4 @@ function remove(req, res, next) {
         .catch(e => next(e));
 }
 
-module.exports = { get, create, list, remove, update };
+module.exports = { get, create, list, remove, update, getActiveProduct };

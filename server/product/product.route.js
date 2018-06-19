@@ -7,6 +7,9 @@ router.route('/')
     .get(productCtrl.list)
     .post(productCtrl.create);
 
+router.route('/active-products')
+    .get(productCtrl.getActiveProduct)
+
 router.route('/:productId')
     .get(productCtrl.get)
     .put(productCtrl.update)
