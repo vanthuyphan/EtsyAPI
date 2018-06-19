@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = require('./server/user/user.route');
 const authRoutes = require('./server/auth/auth.route');
+const productRoutes = require('./server/product/product.route');
 
 const router = express.Router();
 
@@ -11,10 +12,8 @@ const router = express.Router();
     }
 );
 
-// mount user routes at /users
 router.use('/users', userRoutes);
-
-// mount auth routes at /auth
 router.use('/auth', authRoutes);
+router.use('/products', productRoutes);
 
 module.exports = router;

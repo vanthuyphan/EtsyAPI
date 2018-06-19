@@ -7,11 +7,11 @@ const router = express.Router();
 
 router.route('/')
   .get(userCtrl.list)
-  .post(validate(paramValidation.createUser), userCtrl.create);
+  .post(userCtrl.create);
 
 router.route('/:userId')
   .get(userCtrl.get)
-  .put(validate(paramValidation.updateUser), userCtrl.update)
+  .put(userCtrl.update)
   .delete(userCtrl.remove);
 
 router.param('userId', userCtrl.load);
