@@ -1,4 +1,5 @@
 const User = require('./user.model');
+const nodemailer = require('nodemailer');
 
 function load(req, res, next, id) {
   User.get(id)
@@ -13,12 +14,37 @@ function get(req, res) {
   return res.json(req.user);
 }
 
+function sendEmail(user) {
+    var smtpTransport = nodemailer.createTransport("SMTP",{
+        service: "Gmail",
+        auth: {
+            user: "vanthuyphan@gmail.com",
+            pass: "F88kmenaya"
+        }
+    });
+
+// setup e-mail data with unicode symbols
+    var mailOptions = {
+        from: "Team 6 ✔ <vanthuyphan@gmail.com>", // sender address
+        to: user.email, // list of receivers
+        subject: "Welcome ✔", // Subject line
+        text: "Welcome " + user.name
+    }
+
+// send mail with defined transport object
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+        }else{
+            console.log("Message sent: " + response.message);
+        }
+
+        // if you don't want to use this transport object anymore, uncomment following line
+        //smtpTransport.close(); // shut down the connection pool, no more messages
+    });
+}
+
 function create(req, res, next) {
-
-  console.log("Requesteeee", req);
-  console.log("Email", req.body.email);
-  console.log("Password", req.body.password);
-
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -26,7 +52,12 @@ function create(req, res, next) {
   });
 
   user.save()
-    .then(savedUser => res.json(savedUser))
+    .then(
+        savedUser => {
+          sendEmail(savedUser);
+          res.json(savedUser)
+        }
+    )
     .catch(e => next(e));
 }
 
