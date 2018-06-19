@@ -9,6 +9,7 @@ router.route('/')
 
 router.route('/:productId')
     .get(productCtrl.get)
+    .put(productCtrl.update)
     .delete(productCtrl.remove);
 
 module.exports = router;

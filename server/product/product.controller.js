@@ -10,7 +10,10 @@ function get(req, res) {
 
 function create(req, res, next) {
     const product = new Product({
-        name: req.body.name
+        name: req.body.name,
+        price: req.body.price,
+        status: req.body.status || "sale",
+        description: req.body.description
     });
 
     product.save()
@@ -25,11 +28,27 @@ function list(req, res, next) {
         .catch(e => next(e));
 }
 
-function remove(req, res, next) {
-    const Product = req.product;
-    Product.remove()
-        .then(deletedProduct => res.json(deletedProduct))
+function update(req, res, next) {
+    const productId = req.params.productId;
+    Product.get(productId)
+        .then((product) => {
+            product.status = req.body.status;
+            product.save()
+                .then(savedProduct => res.json(savedProduct))
+                .catch(e => next(e));
+        })
         .catch(e => next(e));
 }
 
-module.exports = { get, create, list, remove };
+function remove(req, res, next) {
+    const productId = req.params.productId;
+    Product.get(productId)
+        .then((product) => {
+            product.remove()
+                .then(deletedProduct => res.json(deletedProduct))
+                .catch(e => next(e));
+        })
+        .catch(e => next(e));
+}
+
+module.exports = { get, create, list, remove, update };
