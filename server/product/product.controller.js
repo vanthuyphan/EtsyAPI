@@ -32,7 +32,6 @@ function update(req, res, next) {
     const productId = req.params.productId;
     Product.get(productId)
         .then((product) => {
-        console.log("Fond product", product);
             product.status = "sold";
             product.save()
                 .then(savedProduct => res.json(savedProduct))

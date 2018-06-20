@@ -10,7 +10,10 @@ function get(req, res) {
 
 function create(req, res, next) {
     const order = new Order({
-        product: req.body.product
+        owner: req.body.owner,
+        name: req.body.name,
+        shipping: req.body.shipping,
+        productName: req.body.productName,
     });
 
     order.save()
@@ -21,14 +24,20 @@ function create(req, res, next) {
 function list(req, res, next) {
     const { limit = 50, skip = 0 } = req.query;
     Order.list({ limit, skip })
-        .then(orders => res.json(orders))
+        .then(orders => {
+            res.json(orders)
+        })
         .catch(e => next(e));
 }
 
 function remove(req, res, next) {
-    const Order = req.order;
-    Order.remove()
-        .then(deletedOrder => res.json(deletedOrder))
+    const orderId = req.params.orderId;
+    Order.get(orderId)
+        .then((order) => {
+            order.remove()
+                .then(deletedOrder => res.json(deletedOrder))
+                .catch(e => next(e));
+        })
         .catch(e => next(e));
 }
 

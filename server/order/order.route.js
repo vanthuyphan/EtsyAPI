@@ -1,14 +1,14 @@
 const express = require('express');
-const categoryCtrl = require('./caterory.controller');
+const orderCtrl = require('./order.controller');
 
 const router = express.Router();
 
 router.route('/')
-    .get(categoryCtrl.list)
-    .post(categoryCtrl.create);
+    .get(orderCtrl.list)
+    .post(orderCtrl.create);
 
-router.route('/:categoryId')
-    .get(categoryCtrl.get)
-    .delete(categoryCtrl.remove);
+router.route('/:orderId')
+    .get(orderCtrl.get)
+    .delete(orderCtrl.remove);
 
 module.exports = router;
