@@ -1,15 +1,4 @@
-# Express & mongoose REST API Boilerplate in ES6
-+ ES6 via Babel 
-+ Authentication via JsonWebToken
-
-
-## Overview
-
-
-### Features
-
-
-## Getting Started
+## Run
 
 + Install Yarn globally: npm i yarn -g
 + yarn
